@@ -2129,6 +2129,13 @@ const DynamicTablePage = () => {
                                 e.target.value
                               )
                             }
+                            style={{
+                              padding: "10px",
+                              width: "100%",
+                              fontSize: "16px",
+                              minHeight: "100px",
+                              minWidth: "150px",
+                            }}
                           />
                         </td>
                         <td>
@@ -2143,6 +2150,13 @@ const DynamicTablePage = () => {
                                 e.target.value
                               )
                             }
+                            style={{
+                              padding: "10px",
+                              width: "100%",
+                              fontSize: "16px",
+                              minHeight: "100px",
+                              minWidth: "150px",
+                            }}
                           />
                         </td>
                         <td>{row.Amount}</td>
