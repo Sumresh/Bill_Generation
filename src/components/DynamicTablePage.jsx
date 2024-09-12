@@ -1770,8 +1770,8 @@ const DynamicTablePage = () => {
         },
         columnStyles: {
           0: { cellWidth: 20 }, // Sl. No
-          1: { cellWidth: 50 }, // Product
-          2: { cellWidth: "auto" }, // Description
+          1: { cellWidth: "auto" }, // Product
+          2: { cellWidth: 50 }, // Description
           3: { cellWidth: 20 }, // sqft
           4: { cellWidth: 20 }, // rate
           5: { cellWidth: 30 }, // Amount
