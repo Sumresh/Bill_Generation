@@ -2741,9 +2741,18 @@ const DynamicTablePage = () => {
           cellWidth: "wrap",
           minCellHeight: 20, // Minimum cell height
         },
+        headStyles: {
+          fillColor: [255, 69, 0], // Orange Red for headers (#FF4500)
+          textColor: 255, // White text
+        },
         bodyStyles: {
           valign: "top",
           cellPadding: 2,
+          fillColor: (rowIndex) => {
+            return rowIndex % 2 === 0
+              ? [255, 218, 185] // Peach (#FFDAB9) for even rows
+              : [255, 240, 224]; // Light Peach (#FFF0E0) for odd rows
+          },
         },
         columnStyles: {
           0: { cellWidth: 20 }, // Sl. No
@@ -2753,6 +2762,7 @@ const DynamicTablePage = () => {
           4: { cellWidth: 20 }, // rate
           5: { cellWidth: 30 }, // Amount
         },
+
         didDrawPage: (data) => {
           // Draw outer box on every page
           drawOuterBox();
@@ -2776,6 +2786,9 @@ const DynamicTablePage = () => {
     doc.addPage();
     drawOuterBox(); // Draw outer box on the new page
 
+    doc.setFillColor(255, 245, 225); // Light Yellow-Orange background color (corresponds to #FFF5E1)
+    doc.rect(0, 0, pageWidth1, pageHeight1, "F");
+
     // Set font color and size for title
     doc.setTextColor(255, 87, 51); // Black color
     doc.setFontSize(18);
@@ -2796,6 +2809,7 @@ const DynamicTablePage = () => {
     );
 
     // Add details text
+    doc.setTextColor(204, 85, 0);
     detailsLines.forEach((line, index) => {
       doc.text(line, summaryDetailsX, summaryDetailsY + index * lineHeight);
     });
@@ -2821,7 +2835,7 @@ const DynamicTablePage = () => {
         minCellHeight: 20, // Minimum cell height
       },
       headStyles: {
-        fillColor: [22, 160, 133], // Header background color
+        fillColor: [255, 69, 0], // Header background color
         textColor: 255, // Header text color (white)
         fontStyle: "bold",
       },
@@ -2851,7 +2865,11 @@ const DynamicTablePage = () => {
 
     // Add a new page for the disclaimer
     doc.addPage();
-    drawOuterBox(); // Draw outer box on the new page
+    // Draw outer box on the new page
+
+    doc.setFillColor(255, 245, 225); // Light Yellow-Orange background color (corresponds to #FFF5E1)
+    doc.rect(0, 0, pageWidth1, pageHeight1, "F");
+    drawOuterBox();
 
     // Set font size and style for the disclaimer text
     doc.setFontSize(10);
