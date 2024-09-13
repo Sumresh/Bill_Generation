@@ -3010,6 +3010,8 @@ const DynamicTablePage = () => {
             </Form.Label>
             <Form.Control
               type="text"
+              value={tableName}
+              onChange={(e) => setTableName(e.target.value)}
               placeholder="Enter customer name"
               style={{
                 backgroundColor: "#FFF5E1", // Input Area Background
@@ -3025,6 +3027,8 @@ const DynamicTablePage = () => {
             <Form.Label style={{ color: "#CC5500" }}>Date</Form.Label>
             <Form.Control
               type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
               style={{
                 backgroundColor: "#FFF5E1",
                 borderColor: "#FF8C00",
