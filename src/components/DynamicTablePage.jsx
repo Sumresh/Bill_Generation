@@ -2954,7 +2954,14 @@ const DynamicTablePage = () => {
   };
 
   return (
-    <Container fluid style={{ backgroundColor: "#FFF5E1", minHeight: "100vh" }}>
+    <Container
+      fluid
+      style={{
+        backgroundColor: "#FFF5E1",
+        minHeight: "100vh",
+        padding: "0 15px",
+      }}
+    >
       {/* Header */}
       <Row className="align-items-center mb-4">
         <Col xs={12} className="text-center">
@@ -2978,15 +2985,13 @@ const DynamicTablePage = () => {
 
       {/* Customer and Date Fields */}
       <Row className="mt-3">
-        <Col md={6}>
+        <Col xs={12} sm={6}>
           <Form.Group controlId="tableName">
             <Form.Label style={{ color: "#CC5500" }}>
               Name Of The Customer
             </Form.Label>
             <Form.Control
               type="text"
-              value={tableName}
-              onChange={(e) => setTableName(e.target.value)}
               placeholder="Enter customer name"
               style={{
                 backgroundColor: "#FFF5E1", // Input Area Background
@@ -2997,13 +3002,11 @@ const DynamicTablePage = () => {
             />
           </Form.Group>
         </Col>
-        <Col md={6}>
+        <Col xs={12} sm={6}>
           <Form.Group controlId="date">
             <Form.Label style={{ color: "#CC5500" }}>Date</Form.Label>
             <Form.Control
               type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
               style={{
                 backgroundColor: "#FFF5E1",
                 borderColor: "#FF8C00",
@@ -3067,31 +3070,6 @@ const DynamicTablePage = () => {
                   fontSize: "16px",
                 }}
               />
-              {/* Suggestions dropdown */}
-              {showSuggestions && filteredSuggestions.length > 0 && (
-                <ul
-                  className="list-group position-absolute"
-                  style={{
-                    width: "100%",
-                    zIndex: 1000,
-                    maxHeight: "150px",
-                    overflowY: "auto",
-                    marginTop: "1rem",
-                  }}
-                >
-                  {filteredSuggestions.map((suggestion, idx) => (
-                    <li
-                      key={idx}
-                      className="list-group-item list-group-item-action"
-                      onClick={() =>
-                        handleSuggestionClick(sectionIndex, suggestion)
-                      }
-                    >
-                      {suggestion}
-                    </li>
-                  ))}
-                </ul>
-              )}
             </Col>
             <Col xs={4} sm={2}>
               <Button
@@ -3110,142 +3088,145 @@ const DynamicTablePage = () => {
           </Row>
 
           {/* Table */}
-          <table
-            className="table mt-3"
-            style={{
-              backgroundColor: "#FFF5E1",
-              border: "1px solid #FF8C00",
-            }}
-          >
-            <thead>
-              <tr>
-                <th>Sl. No</th>
-                <th>Product</th>
-                <th>Description</th>
-                <th>sqft</th>
-                <th>rate</th>
-                <th>Amount</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {section.rows.map((row, rowIndex) => (
-                <tr
-                  key={rowIndex}
-                  style={{
-                    backgroundColor: rowIndex % 2 === 0 ? "#FFE4E1" : "#FFDAB9", // Alternating row colors
-                  }}
-                >
-                  <td>{row.SlNo}</td>
-                  <td>
-                    <Form.Control
-                      as="textarea"
-                      rows={1}
-                      value={row.Product}
-                      onChange={(e) =>
-                        updateCellValue(
-                          sectionIndex,
-                          rowIndex,
-                          "Product",
-                          e.target.value
-                        )
-                      }
-                      placeholder="Enter value"
-                      style={{
-                        padding: "10px",
-                        width: "100%",
-                        fontSize: "16px",
-                        minHeight: "100px",
-                        minWidth: "150px",
-                        backgroundColor: "#FFF5E1",
-                        borderColor: "#FF8C00",
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <Form.Control
-                      as="textarea"
-                      value={row.Description}
-                      onChange={(e) =>
-                        updateCellValue(
-                          sectionIndex,
-                          rowIndex,
-                          "Description",
-                          e.target.value
-                        )
-                      }
-                      style={{
-                        padding: "10px",
-                        width: "100%",
-                        fontSize: "16px",
-                        minHeight: "100px",
-                        minWidth: "150px",
-                        backgroundColor: "#FFF5E1",
-                        borderColor: "#FF8C00",
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <Form.Control
-                      type="number"
-                      value={row.sqft}
-                      onChange={(e) =>
-                        updateCellValue(
-                          sectionIndex,
-                          rowIndex,
-                          "sqft",
-                          e.target.value
-                        )
-                      }
-                      style={{
-                        padding: "10px",
-                        width: "100%",
-                        fontSize: "16px",
-                        backgroundColor: "#FFF5E1",
-                        borderColor: "#FF8C00",
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <Form.Control
-                      type="number"
-                      value={row.rate}
-                      onChange={(e) =>
-                        updateCellValue(
-                          sectionIndex,
-                          rowIndex,
-                          "rate",
-                          e.target.value
-                        )
-                      }
-                      style={{
-                        padding: "10px",
-                        width: "100%",
-                        fontSize: "16px",
-                        backgroundColor: "#FFF5E1",
-                        borderColor: "#FF8C00",
-                      }}
-                    />
-                  </td>
-                  <td>{row.Amount}</td>
-                  <td>
-                    <Button
-                      variant="danger"
-                      onClick={() => deleteRow(sectionIndex, rowIndex)}
-                      style={{
-                        backgroundColor: "#FF6347",
-                        borderColor: "#FF6347",
-                        padding: "8px 12px",
-                        fontSize: "16px",
-                      }}
-                    >
-                      Delete Row
-                    </Button>
-                  </td>
+          <div style={{ overflowX: "auto" }}>
+            <table
+              className="table mt-3"
+              style={{
+                backgroundColor: "#FFF5E1",
+                border: "1px solid #FF8C00",
+              }}
+            >
+              <thead>
+                <tr>
+                  <th>Sl. No</th>
+                  <th>Product</th>
+                  <th>Description</th>
+                  <th>sqft</th>
+                  <th>rate</th>
+                  <th>Amount</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {section.rows.map((row, rowIndex) => (
+                  <tr
+                    key={rowIndex}
+                    style={{
+                      backgroundColor:
+                        rowIndex % 2 === 0 ? "#FFE4E1" : "#FFDAB9", // Alternating row colors
+                    }}
+                  >
+                    <td>{row.SlNo}</td>
+                    <td>
+                      <Form.Control
+                        as="textarea"
+                        rows={1}
+                        value={row.Product}
+                        onChange={(e) =>
+                          updateCellValue(
+                            sectionIndex,
+                            rowIndex,
+                            "Product",
+                            e.target.value
+                          )
+                        }
+                        placeholder="Enter value"
+                        style={{
+                          padding: "10px",
+                          width: "100%",
+                          fontSize: "16px",
+                          minHeight: "100px",
+                          minWidth: "150px",
+                          backgroundColor: "#FFF5E1",
+                          borderColor: "#FF8C00",
+                        }}
+                      />
+                    </td>
+                    <td>
+                      <Form.Control
+                        as="textarea"
+                        value={row.Description}
+                        onChange={(e) =>
+                          updateCellValue(
+                            sectionIndex,
+                            rowIndex,
+                            "Description",
+                            e.target.value
+                          )
+                        }
+                        style={{
+                          padding: "10px",
+                          width: "100%",
+                          fontSize: "16px",
+                          minHeight: "100px",
+                          minWidth: "150px",
+                          backgroundColor: "#FFF5E1",
+                          borderColor: "#FF8C00",
+                        }}
+                      />
+                    </td>
+                    <td>
+                      <Form.Control
+                        type="number"
+                        value={row.sqft}
+                        onChange={(e) =>
+                          updateCellValue(
+                            sectionIndex,
+                            rowIndex,
+                            "sqft",
+                            e.target.value
+                          )
+                        }
+                        style={{
+                          padding: "10px",
+                          width: "100%",
+                          fontSize: "16px",
+                          backgroundColor: "#FFF5E1",
+                          borderColor: "#FF8C00",
+                        }}
+                      />
+                    </td>
+                    <td>
+                      <Form.Control
+                        type="number"
+                        value={row.rate}
+                        onChange={(e) =>
+                          updateCellValue(
+                            sectionIndex,
+                            rowIndex,
+                            "rate",
+                            e.target.value
+                          )
+                        }
+                        style={{
+                          padding: "10px",
+                          width: "100%",
+                          fontSize: "16px",
+                          backgroundColor: "#FFF5E1",
+                          borderColor: "#FF8C00",
+                        }}
+                      />
+                    </td>
+                    <td>{row.Amount}</td>
+                    <td>
+                      <Button
+                        variant="danger"
+                        onClick={() => deleteRow(sectionIndex, rowIndex)}
+                        style={{
+                          backgroundColor: "#FF6347",
+                          borderColor: "#FF6347",
+                          padding: "8px 12px",
+                          fontSize: "16px",
+                        }}
+                      >
+                        Delete Row
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           <Button
             variant="primary"
