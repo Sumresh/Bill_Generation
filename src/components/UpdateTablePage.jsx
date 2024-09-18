@@ -446,11 +446,34 @@ const UpdateTablePage = () => {
 
   const handlePrintData = async () => {
     const doc = new jsPDF();
+
+    const pageWidth1 = doc.internal.pageSize.width;
+    const pageHeight1 = doc.internal.pageSize.height;
+
+    // Set background color for the entire page
+    doc.setFillColor(255, 245, 225); // Light Yellow-Orange background color (corresponds to #FFF5E1)
+    doc.rect(0, 0, pageWidth1, pageHeight1, "F");
+
     const margin = 10;
+    // Set font color for title
+    doc.setTextColor(204, 85, 0);
+    doc.setFont("times", "bold");
+    doc.setFontSize(30);
     const title = "House Decors";
     const pageWidth = doc.internal.pageSize.width;
     const textWidth = doc.getTextWidth(title);
-    const textX = (pageWidth - textWidth) / 2;
+    const textX = (pageWidth - textWidth) / 2; // Calculate X position to center the text
+    doc.text(title, textX, margin + 10);
+
+    const drawBackgroundColor = () => {
+      // Define page width and height
+      const pageWidth = doc.internal.pageSize.width;
+      const pageHeight = doc.internal.pageSize.height;
+
+      // Set background color for the entire page
+      doc.setFillColor(255, 245, 225); // Light Yellow-Orange background color (#FFF5E1)
+      doc.rect(0, 0, pageWidth, pageHeight, "F"); // Fill the entire page with the background color
+    };
 
     const drawOuterBox = () => {
       const pageWidth = doc.internal.pageSize.width;
@@ -460,16 +483,14 @@ const UpdateTablePage = () => {
 
     drawOuterBox();
 
-    doc.setFontSize(18);
-    doc.text("BLACK AND WHITE INTERIORS", margin + 10, margin + 20);
-
     // Set font color for details
-    doc.setTextColor(50, 50, 50); // Dark gray color
+    doc.setTextColor(204, 85, 0);
+    doc.setFont("times", "normal");
     const details = `
-  Shabari complex, 26 & 27,kithaganura villaganur,Margondanahalli,Bengaluru,Kithiganur,
-                                                        Karnataka 560049
-  GST: 29BWUPA0578C1ZE                                          Ph: 9739185445 / 8553795482`;
-
+                1st Floor, No.10-B, 12th Street, Landmark, North,Opp. to MPA Church, North 
+                          Jagannatha Nagar, Villivakkam, Chennai, Tamil Nadu - 600049.
+    
+                    Website: https://housedecors.in                                Ph: 98400 49606`;
     // Add details below the title
     doc.setFontSize(12);
     const detailsX = margin + 10;
@@ -497,40 +518,50 @@ const UpdateTablePage = () => {
     let yOffset = detailsY + detailsHeight + 10;
 
     // Set font color for rest of the content
+    doc.setFont("times", "normal");
     doc.setTextColor(0, 0, 0); // Black color
     doc.setFontSize(12);
     doc.text(
-      `Name Of The Customer: ${selectedRecord.tableName}`,
+      `Quotation To : ${selectedRecord.tableName}`,
       margin + 10,
       yOffset
     );
     yOffset += 10;
     doc.text(`Date: ${selectedRecord.date}`, margin + 10, yOffset);
+    yOffset += 10;
+    doc.text(
+      `"We thank you very much for your kind enquiry in connection with your requirement of INTERIOR 
+work. Please find herewith our offer for your kind consideration."`,
+      margin + 10,
+      yOffset
+    );
     yOffset += 20;
 
     sections.forEach((section, sectionIndex) => {
-      if (yOffset > 250) {
+      if (yOffset >= doc.internal.pageSize.height - 80) {
         doc.addPage();
+        drawBackgroundColor();
         drawOuterBox();
         yOffset = margin + 10;
       }
 
-      doc.setFontSize(14);
-      doc.text(
-        `Section ${sectionIndex + 1}: ${section.sectionName}`,
-        margin + 10,
-        yOffset
-      );
+      doc.setTextColor(255, 87, 51);
+      doc.setFont("times", "bold");
+      doc.setFontSize(18);
+      doc.text(`${section.sectionName}`, margin + 80, yOffset);
       yOffset += 10;
 
+      // Reset font style and color for other content
+      doc.setTextColor(0, 0, 0); // Black color
+      doc.setFont("times", "normal");
       doc.setFontSize(12);
 
       const headers = [
         "Sl. No",
         "Product",
         "Description",
-        "sqft",
-        "rate",
+        "Sqft",
+        "Rate",
         "Amount",
       ];
 
@@ -554,7 +585,12 @@ const UpdateTablePage = () => {
         styles: {
           overflow: "linebreak",
           cellWidth: "wrap",
-          minCellHeight: 20,
+          minCellHeight: 10,
+          halign: "center",
+        },
+        headStyles: {
+          fillColor: [255, 69, 0], // Orange Red for headers (#FF4500)
+          textColor: 255, // White text
         },
         bodyStyles: {
           valign: "top",
@@ -572,7 +608,7 @@ const UpdateTablePage = () => {
         const amount = parseFloat(row.Amount) || 0;
         return total + amount;
       }, 0);
-      doc.text(`Total Price: ${totalPrice.toFixed(2)}`, margin + 10, yOffset);
+      doc.text(`Total Price: ${totalPrice.toFixed(2)}`, margin + 135, yOffset);
       yOffset += 20;
     });
 
@@ -595,34 +631,23 @@ const UpdateTablePage = () => {
 
     // Add a new page for the summary
     doc.addPage();
+    drawBackgroundColor();
     drawOuterBox(); // Draw outer box on the new page
 
+    doc.setFillColor(255, 245, 225); // Light Yellow-Orange background color (corresponds to #FFF5E1)
+    doc.rect(0, 0, pageWidth1, pageHeight1, "F");
+
     // Set font color and size for title
-    doc.setTextColor(0, 0, 0); // Black color
+    doc.setTextColor(255, 87, 51);
     doc.setFontSize(18);
-    doc.text(title, textX, margin + 10);
+    doc.setFont("times", "bold");
+    const summaryTitle = "Final Quotation";
+    const summaryTextWidth = doc.getTextWidth(summaryTitle);
+    const summaryTextX = (pageWidth - summaryTextWidth) / 2;
+    doc.text(summaryTitle, summaryTextX, margin + 10);
 
-    // Set font color for details
-    doc.setTextColor(50, 50, 50); // Dark gray color
-    doc.setFontSize(12);
-    const summaryDetailsX = margin + 10;
-    const summaryDetailsY = margin + 20;
-
-    // Draw box around details
-    doc.rect(
-      summaryDetailsX - 2,
-      summaryDetailsY - 2,
-      pageWidth - 2 * margin - 16,
-      detailsHeight + 4
-    );
-
-    // Add details text
-    detailsLines.forEach((line, index) => {
-      doc.text(line, summaryDetailsX, summaryDetailsY + index * lineHeight);
-    });
-
-    // Adjust yOffset for summary content
-    yOffset = summaryDetailsY + detailsHeight + 10;
+    // Adjust yOffset to minimize space between the title and the table
+    yOffset = margin + 20; // Adjust to reduce the gap after the title
 
     // Add section totals in a table
     const finalBillHeaders = ["Section Name", "Total Price"];
@@ -647,10 +672,11 @@ const UpdateTablePage = () => {
       styles: {
         overflow: "linebreak",
         cellWidth: "wrap",
-        minCellHeight: 20, // Minimum cell height
+        minCellHeight: 18, // Reduced minimum cell height
+        lineHeight: 1.2, // Adjusted line height to reduce extra space
       },
       headStyles: {
-        fillColor: [22, 160, 133], // Header background color
+        fillColor: [255, 69, 0], // Header background color
         textColor: 255, // Header text color (white)
         fontStyle: "bold",
       },
@@ -666,12 +692,12 @@ const UpdateTablePage = () => {
     });
 
     // Update yOffset for final quoted value
-    yOffset = doc.autoTable.previous.finalY + 20;
+    yOffset = doc.autoTable.previous.finalY + 10; // Reduce space after the table
 
     // Final quoted value
     doc.setFontSize(14);
     doc.setTextColor(0, 0, 0); // Black color
-    doc.setFont("helvetica", "bold");
+    doc.setFont("times", "bold");
     doc.text(
       `Final Quoted Value: ${sections
         .reduce(
@@ -691,52 +717,55 @@ const UpdateTablePage = () => {
 
     // Add a new page for the disclaimer
     doc.addPage();
+    drawBackgroundColor();
+    doc.rect(0, 0, pageWidth1, pageHeight1, "F");
     drawOuterBox(); // Draw outer box on the new page
 
     // Set font size and style for the disclaimer text
     doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
+    doc.setFont("times", "normal");
 
     const disclaimer = `
-Brands:
-* Plywood : Lumber
-* Laminates : Star
-* Channels and Hinges: EBCO
-* Sliding Door Fitting : SAP
-* Tandem : Ebco
-* Locks : Godrej or Europa
+    Brands:
+    * Plywood : kitply / Fortune Gold
+    * Laminates : Merino / Greenlam
+    * Telescopic wheels & Hinch's = Hettich / Ebco
+    * Accessories = Ebco
+    * Locks = Godrej / Europa
+    * Edgeband = Star
 
-Note:
-* The Project cost is only with respect to woodwork.
-* Any additional or subtraction of work shall be reflected in the final invoice.
-* We at Black & White Interiors are committed to providing the utmost quality and satisfaction to the
-customers and a value for their money.
-* The above quotation doesn't include any Kitchen Top, light fixtures, Profile Lights, sensors, or any
-other artifacts.
-* The price is an initial estimate and valid for 90 days. The actual quote would be provided once site
-masking is complete. Further,
-* To move forward with actual measurement design-based final quote, 10% of the actual value of the
-project needs to be paid.
+    Note:
+    * The Project cost is only with respect to woodwork.
+    * Any additional or subtraction of work shall be reflected in the final invoice.
+    * We at Black & White Interiors are committed to providing the utmost quality and satisfaction to the
+    customers and a value for their money.
+    * The above quotation doesn't include any Kitchen Top, light fixtures, Profile Lights, sensors, or any
+    other artifacts.
+    * The price is an initial estimate and valid for 30 days. The actual quote would be provided once site
+    masking is complete. Further,
+    * To move forward with actual measurement design-based final quote, 10% of the actual value of the
+    project needs to be paid.
 
-Terms & Conditions:
-* The above-mentioned is a rough estimation. The above quote may vary once the designs are finalized.
-* GST @ 18% EXTRA
-All Rates Are Inclusive Of All Hardwares.
-* All telescopic channels will be normal close. Only kitchen will be soft close.
-* Certain profile handles will be given for kitchen base units which would meet the rate parity.
-* The total time required for the execution of the project will be 45 days from the date of the
-receipt of your confirmation.
+    Terms & Conditions:
+    * The above-mentioned is a rough estimation. The above quote may vary once the designs are finalized.
+    * GST @ 18% EXTRA
+    All Rates Are Inclusive Of All Hardwares.
+    * All telescopic channels will be normal close. Only kitchen will be soft close.
+    * Certain profile handles will be given for kitchen base units which would meet the rate parity.
+    * The total time required for the execution of the project will be 45 days from the date of the
+    receipt of your confirmation.
+    * If any ather inclusians ar modfications addtional cost.
+    * Final peyment based on the final measurements only.
+    * No hidden charges other than this Quote.
 
-Payment Terms:
-* At the time of sign-up                       -----10%
-* At the time of production                    -----40%
-* At the time of material delivered to site    -----50%
+    Payment Terms:
+    * 50% payment along with your confirmation
+    * 30% Payment against doors delivery
+    * 20% payment against 100% completion work
 
-Warranty:
-* All your woodwork is covered under the Chattels Design up to Lifetime warranty. This safeguards you
-against any defects in all accessories, hardware, and appliances are covered as per the respective
-Manufacturer's Warranty Policy.
-  `;
+    Warranty:
+    * All plywoods, accessories, hardware and appliances are covered as per the respective manufacturers 
+    warranty policy.`;
 
     const printHeading = (heading, yOffset, color) => {
       // Check if color is an array and has 3 elements
