@@ -2629,6 +2629,12 @@ const DynamicTablePage = () => {
 
     // Function to draw the content (title, details, sections, etc.)
     const drawContent = () => {
+      const logoX = margin + 5; // Align the logo at the left margin
+      const logoY = margin + 2; // Adjust Y coordinate to align with the title
+      const logoWidth = 15; // Adjust width of the logo
+      const logoHeight = 15; // Adjust height of the logo
+      doc.addImage(logo, "PNG", logoX, logoY, logoWidth, logoHeight);
+
       // Set font color for title
       doc.setTextColor(204, 85, 0);
       doc.setFont("times", "bold");

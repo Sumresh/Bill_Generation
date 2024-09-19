@@ -455,6 +455,13 @@ const UpdateTablePage = () => {
     doc.rect(0, 0, pageWidth1, pageHeight1, "F");
 
     const margin = 10;
+
+    const logoWidth = 15; // Width of the logo in mm
+    const logoHeight = 15; // Height of the logo in mm
+    const logoX = margin + 5; // X position for the logo
+    const logoY = margin + 2; // Y position for the logo
+    doc.addImage(background, "PNG", logoX, logoY, logoWidth, logoHeight);
+
     // Set font color for title
     doc.setTextColor(204, 85, 0);
     doc.setFont("times", "bold");
