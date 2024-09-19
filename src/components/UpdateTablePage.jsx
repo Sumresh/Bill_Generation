@@ -369,7 +369,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { database, ref, get, update, set } from "./firebase"; // Import 'set' for saving new records
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import background from "./logo.png";
+import background from "./logo2.png";
 
 const UpdateTablePage = () => {
   const [data, setData] = useState([]);
@@ -487,10 +487,10 @@ const UpdateTablePage = () => {
     doc.setTextColor(204, 85, 0);
     doc.setFont("times", "normal");
     const details = `
-                1st Floor, No.10-B, 12th Street, Landmark, North,Opp. to MPA Church, North 
-                          Jagannatha Nagar, Villivakkam, Chennai, Tamil Nadu - 600049.
+              No.10-B, 1st Floor, 12th Street, Landmark, North Jagannatha Nagar,Villivakkam , 
+                                    Opp. to MPA Church, Chennai, Tamil Nadu - 600049.
     
-                    Website: https://housedecors.in                                Ph: 98400 49606`;
+                  Website Link: https://housedecors.in                               Ph: 98400 49606`;
     // Add details below the title
     doc.setFontSize(12);
     const detailsX = margin + 10;
@@ -737,10 +737,10 @@ work. Please find herewith our offer for your kind consideration."`,
     Note:
     * The Project cost is only with respect to woodwork.
     * Any additional or subtraction of work shall be reflected in the final invoice.
-    * We at Black & White Interiors are committed to providing the utmost quality and satisfaction to the
+    * We at house decors are committed to providing the utmost quality and satisfaction to the
     customers and a value for their money.
-    * The above quotation doesn't include any Kitchen Top, light fixtures, Profile Lights, sensors, or any
-    other artifacts.
+    * The above quotation doesn't include any Kitchen Top, light fixtures, Profile Lights, Masking/Marking,
+    sensors, or any other artifacts.
     * The price is an initial estimate and valid for 30 days. The actual quote would be provided once site
     masking is complete. Further,
     * To move forward with actual measurement design-based final quote, 10% of the actual value of the
@@ -749,13 +749,13 @@ work. Please find herewith our offer for your kind consideration."`,
     Terms & Conditions:
     * The above-mentioned is a rough estimation. The above quote may vary once the designs are finalized.
     * GST @ 18% EXTRA
-    All Rates Are Inclusive Of All Hardwares.
+    * All Rates Are Inclusive Of All Hardwares.
     * All telescopic channels will be normal close. Only kitchen will be soft close.
     * Certain profile handles will be given for kitchen base units which would meet the rate parity.
     * The total time required for the execution of the project will be 45 days from the date of the
     receipt of your confirmation.
-    * If any ather inclusians ar modfications addtional cost.
-    * Final peyment based on the final measurements only.
+    * If any other inclusions or modifications additional cost.
+    * Final payment based on the final measurements only.
     * No hidden charges other than this Quote.
 
     Payment Terms:
