@@ -2749,7 +2749,7 @@ work. Please find herewith our offer for your kind consideration."`,
             minCellHeight: 10, // Minimum cell height
           },
           headStyles: {
-            fillColor: [255, 69, 0], // Orange Red for headers (#FF4500)
+            // fillColor: [255, 69, 0], // Orange Red for headers (#FF4500)
             textColor: 255, // White text
           },
           bodyStyles: {
@@ -2820,7 +2820,7 @@ work. Please find herewith our offer for your kind consideration."`,
           minCellHeight: 10, // Minimum cell height
         },
         headStyles: {
-          fillColor: [255, 69, 0], // Header background color
+          // fillColor: [255, 69, 0], // Header background color
           textColor: 255, // Header text color (white)
           fontStyle: "bold",
         },
