@@ -456,6 +456,9 @@ const UpdateTablePage = () => {
 
     const margin = 10;
 
+    const dateParts = selectedRecord.date.split("-");
+    const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+
     const logoWidth = 15; // Width of the logo in mm
     const logoHeight = 15; // Height of the logo in mm
     const logoX = margin + 5; // X position for the logo
@@ -497,7 +500,7 @@ const UpdateTablePage = () => {
               No.10-B, 1st Floor, 12th Street, Landmark, North Jagannatha Nagar,Villivakkam , 
                                     Opp. to MPA Church, Chennai, Tamil Nadu - 600049.
     
-                  Website Link: https://housedecors.in                               Ph: 98400 49606`;
+                  Website Link: www.housedecors.in                                   Ph: 98400 49606`;
     // Add details below the title
     doc.setFontSize(12);
     const detailsX = margin + 10;
@@ -534,10 +537,10 @@ const UpdateTablePage = () => {
       yOffset
     );
     yOffset += 10;
-    doc.text(`Date: ${selectedRecord.date}`, margin + 10, yOffset);
+    doc.text(`Date: ${formattedDate}`, margin + 10, yOffset);
     yOffset += 10;
     doc.text(
-      `"We thank you very much for your kind enquiry in connection with your requirement of INTERIOR 
+      `"We thank you very much for your kind enquiry in connection with your requirement of interior 
 work. Please find herewith our offer for your kind consideration."`,
       margin + 10,
       yOffset

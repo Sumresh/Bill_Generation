@@ -2651,7 +2651,7 @@ const DynamicTablePage = () => {
               No.10-B, 1st Floor, 12th Street, Landmark, North Jagannatha Nagar,Villivakkam , 
                                     Opp. to MPA Church, Chennai, Tamil Nadu - 600049.
     
-                  Website Link: https://housedecors.in                               Ph: 98400 49606`;
+                  Website Link: www.housedecors.in                                   Ph: 98400 49606`;
 
       //       Add details below the title
       doc.setFontSize(12);
@@ -2684,10 +2684,11 @@ const DynamicTablePage = () => {
       doc.setTextColor(0, 0, 0); // Black color
       doc.text(`Quotation To : ${tableName}`, margin + 10, yOffset);
       yOffset += 10;
-      doc.text(`Date: ${date}`, margin + 10, yOffset);
+      const dateParts = date.split("-");
+      const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
       yOffset += 10;
       doc.text(
-        ` "We thank you very much for your kind enquiry in connection with your requirement of INTERIOR 
+        ` "We thank you very much for your kind enquiry in connection with your requirement of interior 
 work. Please find herewith our offer for your kind consideration."`,
         margin + 10,
         yOffset
