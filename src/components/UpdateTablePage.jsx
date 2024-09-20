@@ -599,7 +599,7 @@ work. Please find herewith our offer for your kind consideration."`,
           halign: "center",
         },
         headStyles: {
-          fillColor: [255, 69, 0], // Orange Red for headers (#FF4500)
+          // fillColor: [255, 69, 0], // Orange Red for headers (#FF4500)
           textColor: 255, // White text
         },
         bodyStyles: {
@@ -686,7 +686,7 @@ work. Please find herewith our offer for your kind consideration."`,
         lineHeight: 1.2, // Adjusted line height to reduce extra space
       },
       headStyles: {
-        fillColor: [255, 69, 0], // Header background color
+        // fillColor: [255, 69, 0], // Header background color
         textColor: 255, // Header text color (white)
         fontStyle: "bold",
       },
