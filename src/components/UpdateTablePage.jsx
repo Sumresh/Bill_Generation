@@ -370,6 +370,7 @@ import { database, ref, get, update, set } from "./firebase"; // Import 'set' fo
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import background from "./logo2.png";
+import photo from "./sign.png";
 
 const UpdateTablePage = () => {
   const [data, setData] = useState([]);
@@ -808,6 +809,36 @@ work. Please find herewith our offer for your kind consideration."`,
         currentY += 6; // Line height for disclaimer text
       }
     });
+
+    // Add a new page for the signature
+    doc.addPage();
+    drawBackgroundColor();
+    doc.rect(0, 0, pageWidth1, pageHeight1, "F");
+    drawOuterBox(); // Draw outer box on the new page
+
+    const pageWidth2 = doc.internal.pageSize.width;
+    const pageHeight2 = doc.internal.pageSize.height;
+
+    // Calculate X and Y positions for signature at the bottom-right
+    const signatureX = pageWidth2 - margin - 60; // Adjust this value as needed
+    const signatureY = pageHeight2 - margin - 40; // Position closer to the bottom
+
+    // Add "Sincerely," text at the bottom right
+    doc.setTextColor(0, 0, 0); // Set color to black
+    doc.setFont("times", "normal");
+    doc.setFontSize(12);
+    doc.text("Sincerely,", signatureX, signatureY);
+
+    // Add name below "Sincerely,"
+    const nameY = signatureY + 10; // Adjust spacing below "Sincerely,"
+    doc.text("Proprietor", signatureX, nameY);
+
+    // Add signature image below the name
+    const signatureLineY = nameY + 10;
+    doc.addImage(photo, "PNG", signatureX - 12, signatureLineY - 14, 50, 20); // Adjust width and height
+
+    const namew = signatureY; // Adjust spacing below "Sincerely,"
+    doc.text("[Udaya Kumar]", signatureX, namew + 30);
 
     // Save the updated data as a new record in Firebase
     const newRecordRef = ref(database, `records/${Date.now()}`);

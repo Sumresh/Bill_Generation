@@ -2489,6 +2489,7 @@ import "jspdf-autotable";
 import { ref, set, get } from "firebase/database";
 import { database } from "./firebase"; // Adjust the path to your firebase configuration
 import logo from "./logo2.png";
+import photo from "./sign.png";
 
 const DynamicTablePage = () => {
   const [tableName, setTableName] = useState("");
@@ -2930,6 +2931,35 @@ work. Please find herewith our offer for your kind consideration."`,
     drawBackgroundColor();
     drawOuterBox();
     drawContent();
+
+    // Add a new page for the signature
+    doc.addPage();
+    drawBackgroundColor();
+    drawOuterBox(); // Draw outer box on the new page
+
+    const pageWidth2 = doc.internal.pageSize.width;
+    const pageHeight2 = doc.internal.pageSize.height;
+
+    // Calculate X and Y positions for signature at the bottom-right
+    const signatureX = pageWidth2 - margin - 60; // Adjust this value as needed
+    const signatureY = pageHeight2 - margin - 40; // Position closer to the bottom
+
+    // Add "Sincerely," text at the bottom right
+    doc.setTextColor(0, 0, 0); // Set color to black
+    doc.setFont("times", "normal");
+    doc.setFontSize(12);
+    doc.text("Sincerely,", signatureX, signatureY);
+
+    // Add name below "Sincerely,"
+    const nameY = signatureY + 10; // Adjust spacing below "Sincerely,"
+    doc.text("Proprietor", signatureX, nameY);
+
+    // Add signature image below the name
+    const signatureLineY = nameY + 10;
+    doc.addImage(photo, "PNG", signatureX - 12, signatureLineY - 14, 50, 20); // Adjust width and height
+
+    const namew = signatureY; // Adjust spacing below "Sincerely,"
+    doc.text("[Udaya Kumar]", signatureX, namew + 30);
 
     doc.save(`${tableName}_summary.pdf`);
 
