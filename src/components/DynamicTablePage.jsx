@@ -2649,8 +2649,8 @@ const DynamicTablePage = () => {
       // Set font color for details
       doc.setTextColor(204, 85, 0);
       const details = `
-              No.10-B, 1st Floor, 12th Street, Landmark, North Jagannatha Nagar,Villivakkam , 
-                                    Opp. to MPA Church, Chennai, Tamil Nadu - 600049.
+                No.10-B, 1st Floor, 12th Street, North Jagannatha Nagar,Villivakkam, Chennai 
+                                    Tamil Nadu - 600049, Landmark: Opp.to MPA Church
     
                   Website Link: www.housedecors.in                                   Ph: 98400 49606`;
 
@@ -2948,7 +2948,7 @@ work. Please find herewith our offer for your kind consideration."`,
     doc.setTextColor(0, 0, 0); // Set color to black
     doc.setFont("times", "normal");
     doc.setFontSize(12);
-    doc.text("Sincerely,", signatureX, signatureY);
+    doc.text("Sincerely,", signatureX, signatureY + 5);
 
     // Add name below "Sincerely,"
     const nameY = signatureY + 10; // Adjust spacing below "Sincerely,"
@@ -2956,10 +2956,10 @@ work. Please find herewith our offer for your kind consideration."`,
 
     // Add signature image below the name
     const signatureLineY = nameY + 10;
-    doc.addImage(photo, "PNG", signatureX - 12, signatureLineY - 14, 50, 20); // Adjust width and height
+    doc.addImage(photo, "PNG", signatureX - 14, signatureLineY - 18, 50, 20); // Adjust width and height
 
     const namew = signatureY; // Adjust spacing below "Sincerely,"
-    doc.text("[Udaya Kumar]", signatureX, namew + 30);
+    doc.text("[Proprietor]", signatureX, namew + 25);
 
     doc.save(`${tableName}_summary.pdf`);
 
