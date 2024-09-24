@@ -2952,7 +2952,7 @@ work. Please find herewith our offer for your kind consideration."`,
 
     // Add name below "Sincerely,"
     const nameY = signatureY + 10; // Adjust spacing below "Sincerely,"
-    doc.text("Proprietor", signatureX, nameY);
+    // doc.text("Proprietor", signatureX, nameY);
 
     // Add signature image below the name
     const signatureLineY = nameY + 10;
